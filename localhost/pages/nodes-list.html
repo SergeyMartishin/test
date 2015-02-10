@@ -1,0 +1,66 @@
+<div ng-controller="NodesController">
+<div style="height: 90%; width: 100%; margin: 0;">
+        <angular-accordion>
+            <pane style="text-align: left;">
+                <strong>Changelist/Build</strong>
+                <strong style="margin-left: 10px;">Owner</strong>
+                <strong style="margin-left: 80px;">Time started</strong>
+                <strong style="margin-left: 58px;">State</strong>
+                <strong style="margin-left: 20px;">Metrics</strong>
+                <strong style="margin-left: 145px;">Build</strong>
+                <strong style="margin-left: 73px;">Unit Test</strong>
+                <strong style="margin-left: 40px;">Functional Test</strong>
+            </pane>
+            <pane ng-repeat="node in nodes | filter:query | orderBy:orderProp | limitTo:quantity" >
+                <pane-header id="pull-{ node.head.repo.permissions }">
+                    <a class="btn btn-primary {{ type }}">{{ node.number }}</a>
+                    <img src="{{ node.head.user.avatar_url }}" class="img-rounded" style="width:34px; height:34px;"/>
+                    <a class="btn btn-default">{{ node.head.user.login }}</a>
+                    <a class="btn btn-default" style="margin-left: 2%;">{{ node.created_at }}</a>
+                    <a class="btn btn-default">{{ node.state }}</a>
+                    <a class="btn btn-default">{{ node.head.repo.size }}</a>
+                    <a class="btn btn-default">{{ node.base.repo.size }}</a>
+                    <a class="progress btn btn-default progress-block">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{ node.head.repo.size }}" aria-valuemin="0" aria-valuemax="{{ node.base.repo.size }}" style="width: 5%; height:20px; position: absolute;">
+                            <span class="sr-only">40% Complete (success)</span>
+                        </div>
+                    </a>
+                     <span class="progress btn  btn-default progress-block">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{ node.head.repo.size }}" aria-valuemin="0" aria-valuemax="{{ node.base.repo.size }}" style="width: 5%; height:20px; position: absolute;">
+                            <span class="sr-only">40% Complete (success)</span>
+                        </div>
+                    </span>
+                     <span class="progress btn btn-default progress-block">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="{{ node.head.repo.size }}" aria-valuemin="0" aria-valuemax="{{ node.base.repo.size }}" style="width: 5%; height:20px; position: absolute;">
+                            <span class="sr-only">40% Complete (success)</span>
+                        </div>
+                    </span>
+                </pane-header>
+                <pane-content>
+                    <div class="col-md-2 thumbnail">
+                        <canvas id="pie" class="chart chart-polar-area" data="data" labels="labels" style="height:80px !important; width:80px !important;"></canvas>
+                        {{ node.head.repo.size }}
+                    </div>
+                    <div class="col-md-2 thumbnail">
+                        <canvas id="pie" class="chart chart-doughnut" data="data" labels="labels" style="height:80px !important; width:80px !important;"></canvas>
+                        {{ node.head.repo.size }}
+                    </div>
+                    <div class="col-md-2 thumbnail">
+                        <canvas id="pie" class="chart chart-pie" data="data" labels="labels" style="height:80px !important; width:80px !important;"></canvas>
+                        {{ node.head.repo.size }}
+                    </div>
+                    <div class="col-md-2 thumbnail">
+                        <canvas id="pie" class="chart chart-pie" data="data" labels="labels" style="height:80px !important; width:80px !important;"></canvas>
+                        {{ node.head.repo.size }}
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-2">
+                        <h2 style="color:green">Complete!</h2>
+                    </div>
+                </pane-content>
+            </pane>
+        </angular-accordion>
+    </div>
+</div>
